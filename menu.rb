@@ -1,11 +1,12 @@
 require_relative 'blackjack.rb'
+require_relative 'intro.rb'
 # require_relative 'slots.rb'
 # require_relative 'war.rb'
 
 
-# introduction
-puts "Hello welcome to the Casino app"
-sleep 1
+# intro
+sleeper
+
 puts "What is your name?"
 @name = gets.strip.to_s
 puts "How old are you?"
