@@ -2,7 +2,8 @@
 # require_relative 'cards.rb'
 # deal
 # stay or hit?
-# hit ---> check if you busted?  stay ------> total score and compare to dealer and ask if want to play again
+# hit ---> check if you busted?  
+# stay ------> total score and compare to dealer and ask if want to play again
 # if busted ----> game over
 # if okay ----> deal
 
@@ -17,9 +18,23 @@
   @user_stay = false 
   # lock in score at time of stay 
   @player_stay_score = 0
+  @dealer_stay_score = 0
 
 
-# METHODS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # deal method start
 def deal
 # types of cards and their values
@@ -62,60 +77,85 @@ def deal
     puts ""
   end
 
-
 # call stay or hit method
 stay_or_hit
 end
 # deal method end
 
+
+
+
+
+
+
+
+
+
+
+
+
 # stay_or_hit method start
 def stay_or_hit
 
   puts "Do you want to stay or hit?(s/h)"
-
-# variables
-  @stay = false
-  @hit = false
-
-# get input from player
-  @choice = gets.strip.to_s.downcase
-
-# users turn
-  if @users_turn
-# handle selection
-case 
-when @choice == 's'
-  @player_stay_score = @player_total
-  puts "Player has chosen to stay. Score is: #{@player_total}"
-  @stay = true
-  @user_stay = true
-when @choice == 'h'
-  @hit = true
-else
-  puts "Invalid selection"
-  stay_or_hit
-end
-    
-# handle stay
-if @stay 
-      @user_stay == true;
-    end
-# handle hit
-    if @hit
-      puts "HIT!"
-      @player_current_score = @player_total
-    end
+@choice = gets.strip.to_s
+  if @choice == 's'
+    @player_current_score = @player_total
+    @player_stay_score = @player_total
+    @dealer_current_score = @dealer_total
+    # dealer
+    @dealer_card = @cards[rand(0...(@cards.length - 1))]
+    @dealer_value = @dealer_card[:value]
+    @dealer_total = @dealer_value + @dealer_current_score
+    @dealer_stay_score = @dealer_total
+    puts "Dealer card is a #{@dealer_card[:type]} of #{@dealer_card[:suit][rand(0...3)]}"
+    print "You are at #{@player_stay_score}        Dealer final score: #{@dealer_stay_score}"
+    puts ""
   end
-  # did player bust or win?
-     score_check(@player_total, @player.name.capitalize)
-     score_check(@dealer_total,'Dealer')
+if @choice == 'h'
+  puts "HIT!" 
+  @player_current_score = @player_total
+  @dealer_current_score = @dealer_total
+  deal
+end
 end
 # stay_or_hit method end
+
+
+
+
+
+
+
+
+
+
 
 # score_check method start
 def score_check(score, user)
   puts "#{user} score is #{score}"
-  deal
+
+  if score > 21
+    puts "#{user} has lost the game."
+  end
+  if score < 21
+    if !@user_stay
+    deal
+    else
+      @player_stay_score > dealer_stay_score ?  "You WIN!" :  "You lost."
+    end
+  end
+  # if
+  #       @dealer_current_score < 17
+        
+  #     else if @dealer_current_score >= 17
+  #       @dealer_stay_score = @dealer_current_score
+  #     else if @dealer_current_score > 21
+  #       puts "You WIN!"
+  #     end
+  #     end
+  #     end
+  # bottom of score check
 end
 
 
