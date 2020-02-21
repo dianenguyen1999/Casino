@@ -1,11 +1,11 @@
 require_relative 'blackjack.rb'
-require_relative 'slots.rb'
-require_relative 'war.rb'
+# require_relative 'slots.rb'
+# require_relative 'war.rb'
 
 
-
+# introduction
 puts "Hello welcome to the Casino app"
-sleep 2
+sleep 1
 puts "What is your name?"
 @name = gets.strip.to_s
 puts "How old are you?"
@@ -13,21 +13,52 @@ puts "How old are you?"
 puts "How much money do you have"
 @money = gets.strip.to_i
 puts "What game would you like to play?"
-@game = gets.strip.to_i
 
+# user class
 class Player
   attr_accessor :name, :money, :age
 
-  def initialize
+  def initialize(name, money, age)
     @name = name
     @money = money
     @age = age  
   end
 end
 
+# instanciate the player
+@player = Player.new(@name, @money, @age)
 
 
-if @game == 1 
+# menu method
+def menu 
 
-  blackjack
+  puts "
+  1) War
+  2) Blackjack
+  3) Slots
+  4) Quit
+  "
+
+# user selection
+  @game = gets.strip.to_i
+
+# game selection logic
+  case
+  when @game == 1
+    puts "you selected war"
+  when @game == 2
+    blackjack(@player)
+  when @game == 3
+    puts "you select slots"
+  when @game == 4
+    puts "Thanks for coming to the Casino! Goodbye."
+    exit
+  else
+    puts "invalid input"
+  end
 end
+
+# start the menu
+menu
+
+

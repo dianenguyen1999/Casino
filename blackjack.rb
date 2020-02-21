@@ -1,7 +1,8 @@
 # cards hashes of suit and their values
 
-def blackjack 
-  puts "Im here"
-  puts "#{}"
+def blackjack(player) 
+  
+  puts "#{player.name} is #{player.age} years old"
+  
 end
 
