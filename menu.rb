@@ -37,7 +37,7 @@ def menu
   1) War
   2) Blackjack
   3) Slots
-  4) Quit
+  4) quit
   "
 
 # user selection
