@@ -48,6 +48,7 @@ def menu
   when @game == 1
     puts "you selected war"
   when @game == 2
+# call blackjack and pass in the player class as an argument
     blackjack(@player)
   when @game == 3
     puts "you select slots"
