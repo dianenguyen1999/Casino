@@ -104,7 +104,7 @@ class Slot
       #add money to wallet
       puts "How much would you like to add?"
       money_to_add = gets.strip.to_i
-
+      
       if money_to_add >= 1000
         puts "Lol right ..."
         add_funds
@@ -114,10 +114,27 @@ class Slot
       puts "New balance: #{@wallet_balance}"
       sleep 1
       menu
-  end
-
-  def view_rules
-    #user can see how game is played and the payouts 
+    end
+    
+    def view_rules
+      #user can see how game is played and the payouts 
+      puts `clear`
+      design_thing
+      print "Game Rules"
+      design_thing
+      puts 
+      puts "The rules of the game are simple. Each time you spin the wheel, you are betting $5.00. 
+      The payouts depend on the symbols you get. 
+      3 matches, you win big! 10:1
+      2 matches, still pretty solid! 3:1
+      0 matches, well ... you get to play again.
+      Fund will automatically be added/deducted from your account.
+      
+      Good Luck"
+      
+      puts "Press any key then enter to exit"
+      user_choice = gets.strip.to_i
+      user_choice == [0-9]? menu : menu
   end
 
   def spin
