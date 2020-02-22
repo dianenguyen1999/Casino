@@ -10,7 +10,8 @@
   # lock in score at time of stay 
   @player_stay_score = 0
   @dealer_stay_score = 0
-
+  # bet variable
+  @bet = 0
 
 
 
@@ -95,7 +96,6 @@ if p_score > 21 then
         end
       else
         puts "something else happened, sorry."
-        `ruby blackjack.rb`
   end
 end
 # check score method end
