@@ -16,6 +16,12 @@ class SlotMachine
     @symbol = value
     @value = value
   end
+  # def create_hash
+  #   new_hash = 
+  #   new_hash{symbol:} = @symbol
+  #   new_hash{'value'} = @value
+  #   return new_hash
+  # end
 end
 
 class Slot
@@ -24,7 +30,21 @@ class Slot
   def initialize(name, wallet_balance)
     @name = name
     @wallet_balance = wallet_balance
+
+    create_wheel
+    greeting 
   end
+  
+  def create_wheel
+    @@slot_wheel = Hash[
+      :apple, 1,
+      :diamond, 2,
+      :gold, 3,
+      :treasure_chest, 4,
+      :puppy, 5,
+    ]
+  end
+
 
   def greeting
     #inital greeting to welcome user to slots and start the game. 
@@ -39,7 +59,7 @@ class Slot
     design_thing
     sleep 3
 
-    CALL GAME METHOD!!!!!!!!!!!!!!!!!!!!!!!!!! HERE
+    # CALL GAME METHOD!!!!!!!!!!!!!!!!!!!!!!!!!! HERE
 
 
   end
@@ -54,4 +74,3 @@ class Slot
 end
 
 carson = Slot.new('Carson', 100.00)
-carson.greeting
