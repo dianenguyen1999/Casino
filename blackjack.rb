@@ -84,18 +84,18 @@ if p_score > 21 then
     elsif p_score == 21 then
       puts "YOU GOT BLACKJACK!!!"
   elsif p_score < 21 && !@user_stay then
-
+#do the stay or hit method
     stay_or_hit
     # deal
       elsif d_score < 21 && @user_stay then
         if d_score > p_score then
           puts "You lost. House wins."
         elsif p_score > d_score
-        puts "You win, right??"
+        puts "You WON!!"
         end
       else
-        puts "something else happened."
-    
+        puts "something else happened, sorry."
+        `ruby blackjack.rb`
   end
 end
 # check score method end
