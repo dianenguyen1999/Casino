@@ -28,11 +28,10 @@ class Slot
       SlotMachine.new("Gold", 40),
       SlotMachine.new("Treasure Chest", 50),
     ]
-    @user_roll = []
-
+    
     greeting 
   end
-
+  
   def greeting
     #inital greeting to welcome user to slots and start the game. 
     puts `clear`
@@ -48,15 +47,15 @@ class Slot
     puts
     menu
   end
-
+  
   def menu
     puts 
     design_thing
     print 'Main Menu'
     design_thing
     puts 
-
-      puts "
+    
+    puts "
     1) Show player current wallet/add funds
     2) View game rules and payouts
     3) Spin the wheel
@@ -99,44 +98,44 @@ class Slot
       show_wallet
     end
   end
+  
+  def add_funds
+    #add money to wallet
+    puts "How much would you like to add?"
+    money_to_add = gets.strip.to_i
     
-    def add_funds
-      #add money to wallet
-      puts "How much would you like to add?"
-      money_to_add = gets.strip.to_i
-      
-      if money_to_add >= 1000
-        puts "Lol right ..."
-        add_funds
-      else
-        @wallet_balance += money_to_add
-      end
-      puts "New balance: #{@wallet_balance}"
-      sleep 1
-      menu
+    if money_to_add >= 1000
+      puts "Lol right ..."
+      add_funds
+    else
+      @wallet_balance += money_to_add
     end
-    
-    def view_rules
-      #user can see how game is played and the payouts 
-      puts `clear`
-      design_thing
-      print "Game Rules"
-      design_thing
-      puts 
-      puts "The rules of the game are simple. Each time you spin the wheel, you are betting $5.00. 
-      The payouts depend on the symbols you get. 
-      3 matches, you win big! 10:1
-      2 matches, still pretty solid! 3:1
-      0 matches, well ... you get to play again.
-      Fund will automatically be added/deducted from your account.
-      
-      Good Luck"
-      
-      puts "Press any key then enter to exit"
-      user_choice = gets.strip.to_i
-      user_choice == [0-9]? menu : menu
+    puts "New balance: #{@wallet_balance}"
+    sleep 1
+    menu
   end
-
+  
+  def view_rules
+    #user can see how game is played and the payouts 
+    puts `clear`
+    design_thing
+    print "Game Rules"
+    design_thing
+    puts 
+    puts "The rules of the game are simple. Each time you spin the wheel, you are betting $5.00. 
+    The payouts depend on the symbols you get. 
+    3 matches, you win big! 10:1
+    2 matches, still pretty solid! 3:1
+    0 matches, well ... you get to play again.
+    Fund will automatically be added/deducted from your account.
+    
+    Good Luck"
+    
+    puts "Press any key then enter to exit"
+    user_choice = gets.strip.to_i
+    user_choice == [0-9]? menu : menu
+  end
+  
   def spin
     puts 
     design_thing
@@ -144,16 +143,38 @@ class Slot
     design_thing
     puts
     
+    user_roll = []
     3.times do 
-      @user_roll<<@slot_wheel[rand(4)].symbol
+      user_roll<<@slot_wheel[rand(4)].symbol
     end
-    puts @user_roll
+    puts user_roll
+    payouts(user_roll)
   end
 
+  def payouts(arr)
+    if arr.uniq.length == 3
+      @wallet_balance -= 5
+    elsif arr.uniq.length == 2
+      @wallet_balance += 15
+    elsif arr.uniq.length == 1
+      @wallet_balance += 50
+    else
+      puts "error"
+    end
+    puts @wallet_balance
+    spin_again
+  end
+
+  def spin_again
+    puts "Spin again?"
+    user_choice = gets.strip
+    user_choice == 'yes'? spin : menu
+  end
+  
   def error
     puts "That is not a correct answer. Try again"
   end
-
+  
   def design_thing
     #Styles the questions so they stand out
     4.times do 
