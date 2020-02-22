@@ -5,23 +5,13 @@
 # allow user to determine bet amount 
 # determine payouts for x number of matches. 
 
-module Game
-
-end
-
 class SlotMachine
   attr_accessor :symbol, :value
 
   def initialize (symbol, value)
-    @symbol = value
+    @symbol = symbol
     @value = value
   end
-  # def create_hash
-  #   new_hash = 
-  #   new_hash{symbol:} = @symbol
-  #   new_hash{'value'} = @value
-  #   return new_hash
-  # end
 end
 
 class Slot
@@ -31,20 +21,17 @@ class Slot
     @name = name
     @wallet_balance = wallet_balance
 
-    create_wheel
+    @slot_wheel = [
+      SlotMachine.new("Apple", 10),
+      SlotMachine.new("Diamond", 20),
+      SlotMachine.new("Puppy", 30),
+      SlotMachine.new("Gold", 40),
+      SlotMachine.new("Treasure Chest", 50),
+    ]
+    @user_roll = []
+
     greeting 
   end
-  
-  def create_wheel
-    @@slot_wheel = Hash[
-      :apple, 1,
-      :diamond, 2,
-      :gold, 3,
-      :treasure_chest, 4,
-      :puppy, 5,
-    ]
-  end
-
 
   def greeting
     #inital greeting to welcome user to slots and start the game. 
@@ -57,11 +44,56 @@ class Slot
     design_thing
     print "You have a current wallet balance of #@wallet_balance."
     design_thing
-    sleep 3
+    sleep 1
+    puts
+    menu
+  end
 
-    # CALL GAME METHOD!!!!!!!!!!!!!!!!!!!!!!!!!! HERE
+  def menu
+    puts 
+  design_thing
+  print 'Main Menu'
+  design_thing
+  puts 
 
+    puts "
+  1) Show player current wallet/add funds
+  2) View game rules and payouts
+  3) Spin the wheel
+  4) Exit back to casino menu
+  "
+  user_choice = gets.strip.to_i
+  
+  case user_choice
+  when 1
+    player_wallet
+  when 2
+    view_rules
+  when 3
+    spin
+  when 4 
+    exit_to_main
+  else 
+    puts "Wrong choice, try again"
+    menu
+  end 
+  end
 
+  def spin
+    puts 
+    design_thing
+    print "Spinning"
+    design_thing
+    puts
+    
+    3.times do 
+      @user_roll<<@slot_wheel[rand(4)].symbol
+    end
+    puts @user_roll
+  end
+
+  def error
+    puts "That is not a correct answer. Try again"
   end
 
   def design_thing
