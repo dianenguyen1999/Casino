@@ -51,32 +51,73 @@ class Slot
 
   def menu
     puts 
-  design_thing
-  print 'Main Menu'
-  design_thing
-  puts 
+    design_thing
+    print 'Main Menu'
+    design_thing
+    puts 
 
-    puts "
-  1) Show player current wallet/add funds
-  2) View game rules and payouts
-  3) Spin the wheel
-  4) Exit back to casino menu
-  "
-  user_choice = gets.strip.to_i
+      puts "
+    1) Show player current wallet/add funds
+    2) View game rules and payouts
+    3) Spin the wheel
+    4) Exit back to casino menu
+    "
+    user_choice = gets.strip.to_i
+    
+    case user_choice
+    when 1
+      show_wallet
+    when 2
+      view_rules
+    when 3
+      spin
+    when 4 
+      exit_to_main
+    else 
+      error
+      menu
+    end 
+  end
   
-  case user_choice
-  when 1
-    player_wallet
-  when 2
-    view_rules
-  when 3
-    spin
-  when 4 
-    exit_to_main
-  else 
-    puts "Wrong choice, try again"
-    menu
-  end 
+  def show_wallet
+    #user can view wallet and add funds if needed
+    puts `clear`
+    puts "Your current wallet balance is $#{@wallet_balance}"
+    puts 
+    puts "Would you like to
+    1) Add more funds
+    2) Return to main menu
+    "
+    user_choice = gets.strip.to_i
+    case user_choice
+    when 1
+      add_funds
+    when 2
+      menu
+    else 
+      error
+      show_wallet
+    end
+  end
+    
+    def add_funds
+      #add money to wallet
+      puts "How much would you like to add?"
+      money_to_add = gets.strip.to_i
+
+      if money_to_add >= 1000
+        puts "Lol right ..."
+        add_funds
+      else
+        @wallet_balance += money_to_add
+      end
+      puts "New balance: #{@wallet_balance}"
+      sleep 1
+      menu
+  end
+
+  def view_rules
+    #user can see how game is played and the payouts 
   end
 
   def spin
