@@ -27,6 +27,8 @@ class Slot
       SlotMachine.new("Puppy", 30),
       SlotMachine.new("Gold", 40),
       SlotMachine.new("Treasure Chest", 50),
+      SlotMachine.new("Monkey", 60),
+      SlotMachine.new("Ice Cream Cone", 70),
     ]
     
     greeting 
@@ -69,6 +71,7 @@ class Slot
     when 2
       view_rules
     when 3
+      choose_bet
       spin
     when 4 
       exit_to_main
@@ -122,7 +125,7 @@ class Slot
     print "Game Rules"
     design_thing
     puts 
-    puts "The rules of the game are simple. Each time you spin the wheel, you are betting $5.00. 
+    puts "The rules of the game are simple. Each time you spin the wheel, your bet will stay the same unless you change it. 
     The payouts depend on the symbols you get. 
     3 matches, you win big! 10:1
     2 matches, still pretty solid! 3:1
@@ -131,9 +134,37 @@ class Slot
     
     Good Luck"
     
-    puts "Press any key then enter to exit"
+    puts "Press enter to exit"
     user_choice = gets.strip.to_i
     user_choice == [0-9]? menu : menu
+  end
+
+  def choose_bet
+    #allows user to choose bet.
+    puts "How much would you like to bet each roll?"
+    @bet_amount = gets.strip.to_i
+    @bet_amount > 0? balance_check : choose_bet
+  end
+
+  def balance_check
+    #checks to make sure user have enough in wallet. 
+    if @bet_amount>@wallet_balance
+      error2
+      puts "Would you like to
+      1) adjust bet?
+      2) back to menu to add funds?"
+      user_choice = gets.strip.to_i
+
+      case user_choice
+      when 1
+        choose_bet
+      when 2
+      menu
+      else 
+      end
+    else
+      spin
+    end
   end
   
   def spin
@@ -142,10 +173,22 @@ class Slot
     print "Spinning"
     design_thing
     puts
+    sleep 1
+    design_thing
+    print "Spinning"
+    design_thing
+    puts
+    sleep 1
+    design_thing
+    print "Spinning"
+    design_thing
+    puts
+    sleep 1
     
     user_roll = []
     3.times do 
-      user_roll<<@slot_wheel[rand(4)].symbol
+      user_roll<<@slot_wheel[rand(6)].symbol
+      
     end
     puts user_roll
     payouts(user_roll)
@@ -153,27 +196,42 @@ class Slot
 
   def payouts(arr)
     if arr.uniq.length == 3
-      @wallet_balance -= 5
+      @wallet_balance -= (@bet_amount)
+      puts "Better luck next roll!"
     elsif arr.uniq.length == 2
-      @wallet_balance += 15
+      @wallet_balance += (@bet_amount * 3)
+      puts "Great bet!"
     elsif arr.uniq.length == 1
-      @wallet_balance += 50
+      @wallet_balance += (@bet_amount * 10)
+      puts "JACKPOT!!!!!!!!!!!!!!!"
     else
       puts "error"
     end
-    puts @wallet_balance
+    puts "wallet balance: #{@wallet_balance}"
     spin_again
   end
 
   def spin_again
     puts "Spin again?"
     user_choice = gets.strip
-    user_choice == 'yes'? spin : menu
+    if user_choice === 'yes'
+      balance_check
+    else
+      menu
+    end
+  end
+
+  def exit
+    #back to main casino menu
   end
   
   def error
     puts "That is not a correct answer. Try again"
   end
+
+  def error2
+    puts "Your bet is larger than your wallet balance. You will need to add additional funds or change your bet amount." 
+  end 
   
   def design_thing
     #Styles the questions so they stand out
@@ -185,3 +243,4 @@ class Slot
 end
 
 carson = Slot.new('Carson', 100.00)
+#the call needs to take inputs from the main menu.  
