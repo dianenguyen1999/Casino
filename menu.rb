@@ -1,6 +1,6 @@
 require_relative 'blackjack.rb'
 require_relative 'intro.rb'
-# require_relative 'slots.rb'
+require_relative 'slots.rb'
 # require_relative 'war.rb'
 
 
@@ -23,6 +23,7 @@ class Player
     @name = name
     @money = money
     @age = age  
+    
   end
 end
 
@@ -44,15 +45,16 @@ def menu
   @game = gets.strip.to_i
 
 # game selection logic
-  case
-  when @game == 1
+  case @game
+  when 1
     puts "you selected war"
-  when @game == 2
+  when 2
 # call blackjack and pass in the player class as an argument
     blackjack(@player)
-  when @game == 3
+  when  3
     puts "you select slots"
-  when @game == 4
+    slots_game = Slot.new(@name, @money)
+  when 4
     puts "Thanks for coming to the Casino! Goodbye."
     exit
   else

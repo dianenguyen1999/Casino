@@ -1,9 +1,5 @@
 #this will be the slot machine
-
-# build class that gives new key value, of number and symbol
-# build out spinning the wheel
-# allow user to determine bet amount 
-# determine payouts for x number of matches. 
+require_relative "menu.rb"
 
 class SlotMachine
   attr_accessor :symbol, :value
@@ -47,10 +43,10 @@ class Slot
     design_thing
     sleep 1
     puts
-    menu
+    slots_menu
   end
   
-  def menu
+  def slots_menu
     puts 
     design_thing
     print 'Main Menu'
@@ -77,7 +73,7 @@ class Slot
       exit_to_main
     else 
       error
-      menu
+      slots_menu
     end 
   end
   
@@ -95,7 +91,7 @@ class Slot
     when 1
       add_funds
     when 2
-      menu
+      slots_menu
     else 
       error
       show_wallet
@@ -115,7 +111,7 @@ class Slot
     end
     puts "New balance: #{@wallet_balance}"
     sleep 1
-    menu
+    slots_menu
   end
   
   def view_rules
@@ -136,16 +132,16 @@ class Slot
     
     puts "Press enter to exit"
     user_choice = gets.strip.to_i
-    user_choice == [0-9]? menu : menu
+    user_choice == [0-9]? slots_menu : slots_menu
   end
-
+  
   def choose_bet
     #allows user to choose bet.
     puts "How much would you like to bet each roll?"
     @bet_amount = gets.strip.to_i
     @bet_amount > 0? balance_check : choose_bet
   end
-
+  
   def balance_check
     #checks to make sure user have enough in wallet. 
     if @bet_amount>@wallet_balance
@@ -154,12 +150,12 @@ class Slot
       1) adjust bet?
       2) back to menu to add funds?"
       user_choice = gets.strip.to_i
-
+      
       case user_choice
       when 1
         choose_bet
       when 2
-      menu
+        slots_menu
       else 
       end
     else
@@ -193,7 +189,7 @@ class Slot
     puts user_roll
     payouts(user_roll)
   end
-
+  
   def payouts(arr)
     if arr.uniq.length == 3
       @wallet_balance -= (@bet_amount)
@@ -210,31 +206,32 @@ class Slot
     puts "wallet balance: #{@wallet_balance}"
     spin_again
   end
-
+  
   def spin_again
     puts "Spin again?"
     user_choice = gets.strip
     if user_choice === 'yes'
       balance_check
     else
-      menu
+      slots_menu
     end
   end
-
+  
   def exit
-    #back to main casino menu
+    #link back to the menu on menu.rb
   end
   
   def error
     puts "That is not a correct answer. Try again"
   end
-
+  
   def error2
     puts "Your bet is larger than your wallet balance. You will need to add additional funds or change your bet amount." 
   end 
   
   def design_thing
     #Styles the questions so they stand out
+    
     4.times do 
       print "--"
     end
@@ -242,5 +239,5 @@ class Slot
 
 end
 
-carson = Slot.new('Carson', 100.00)
+# carson = Slot.new('carson', 100)
 #the call needs to take inputs from the main menu.  
