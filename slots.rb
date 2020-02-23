@@ -217,8 +217,8 @@ class Slot
     end
   end
   
-  def exit
-    #link back to the menu on menu.rb
+  def exit_to_main
+    #connect back to main menu
   end
   
   def error
@@ -231,7 +231,6 @@ class Slot
   
   def design_thing
     #Styles the questions so they stand out
-    
     4.times do 
       print "--"
     end
