@@ -12,27 +12,28 @@ puts "What is your name?"
 puts "How old are you?"
 @age = gets.strip.to_i
 puts "How much money do you have"
-@money = gets.strip.to_i
-puts "What game would you like to play?"
-
-# user class
-class Player
-  attr_accessor :name, :money, :age
-
-  def initialize(name, money, age)
-    @name = name
-    @money = money
-    @age = age  
+  @money = gets.strip.to_i
+  puts "What game would you like to play?"
+  
+  # user class
+  class Player
+    attr_accessor :name, :money, :age
     
+    def initialize(name, money, age)
+      @name = name
+      @money = money
+      @age = age  
+      
+    end
   end
-end
-
-# instanciate the player
-@player = Player.new(@name, @money, @age)
-
-
-# menu method
-def menu 
+  
+  # instanciate the player
+  @player = Player.new(@name, @money, @age)
+  
+  
+  # menu method
+  def menu 
+    age_check
 
   puts "
   1) War
@@ -62,6 +63,14 @@ def menu
   end
 end
 
+def age_check
+  if @age < 21
+    puts "Maybe you should try the arcade down the road kid."
+    sleep 3
+    exit
+  else
+  end
+end
 # start the menu
 menu
 
