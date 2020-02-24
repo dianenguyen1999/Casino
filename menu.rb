@@ -1,6 +1,6 @@
 require_relative 'blackjack.rb'
 require_relative 'intro.rb'
-# require_relative 'slots.rb'
+require_relative 'slots.rb'
 # require_relative 'war.rb'
 
 
@@ -12,26 +12,28 @@ puts "What is your name?"
 puts "How old are you?"
 @age = gets.strip.to_i
 puts "How much money do you have"
-@money = gets.strip.to_i
-puts "What game would you like to play?"
-
-# user class
-class Player
-  attr_accessor :name, :money, :age
-
-  def initialize(name, money, age)
-    @name = name
-    @money = money
-    @age = age  
+  @money = gets.strip.to_i
+  puts "What game would you like to play?"
+  
+  # user class
+  class Player
+    attr_accessor :name, :money, :age
+    
+    def initialize(name, money, age)
+      @name = name
+      @money = money
+      @age = age  
+      
+    end
   end
-end
-
-# instanciate the player
-@player = Player.new(@name, @money, @age)
-
-
-# menu method
-def menu 
+  
+  # instanciate the player
+  @player = Player.new(@name, @money, @age)
+  
+  
+  # menu method
+  def menu 
+    age_check
 
   puts "
   1) War
@@ -44,15 +46,16 @@ def menu
   @game = gets.strip.to_i
 
 # game selection logic
-  case
-  when @game == 1
+  case @game
+  when 1
     puts "you selected war"
-  when @game == 2
+  when 2
 # call blackjack and pass in the player class as an argument
     blackjack(@player)
-  when @game == 3
+  when  3
     puts "you select slots"
-  when @game == 4
+    slots_game = Slot.new(@name, @money)
+  when 4
     puts "Thanks for coming to the Casino! Goodbye."
     exit
   else
@@ -60,6 +63,14 @@ def menu
   end
 end
 
+def age_check
+  if @age < 21
+    puts "Maybe you should try the arcade down the road kid."
+    sleep 3
+    exit
+  else
+  end
+end
 # start the menu
 menu
 
