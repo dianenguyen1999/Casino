@@ -1,6 +1,6 @@
-require_relative 'blackjack.rb'
-require_relative 'intro.rb'
-require_relative 'slots.rb'
+require_relative "blackjack"
+require_relative "intro"
+require_relative "slots"
 # require_relative 'war.rb'
 
 
@@ -52,7 +52,7 @@ puts "How much money do you have"
   when 2
 # call blackjack and pass in the player class as an argument
     blackjack(@player)
-  when  3
+  when 3
     puts "you select slots"
     slots_game = Slot.new(@name, @money)
   when 4

@@ -1,5 +1,5 @@
 #this will be the slot machine
-require_relative "menu.rb"
+# require_relative "menu"
 
 class SlotMachine
   attr_accessor :symbol, :value
@@ -237,6 +237,7 @@ class Slot
   end
 
 end
+
 
 # carson = Slot.new('carson', 100)
 #the call needs to take inputs from the main menu.  
