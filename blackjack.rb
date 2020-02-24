@@ -10,8 +10,8 @@
   # lock in score at time of stay 
   @player_stay_score = 0
   @dealer_stay_score = 0
-  # bet variable
-  @bet = 0
+
+  @player_money = 0
 
 
 
@@ -59,7 +59,8 @@ def deal
 # prints out dealers card info
     puts "Dealer card is a #{@dealer_card[:type]} of #{@dealer_card[:suit][rand(0...3)]}"
 # puts scores on one line for readability
-    print "You are at #{@player_total}        Dealer score: #{@dealer_total}"
+    print "You are at #{@player_total}        Dealer score: #{@dealer_total}       "
+    print "Money: #{@player_money}   Bet: (#{@bet})" 
     puts "" #line break
 
 # run method to check the scores
@@ -80,19 +81,32 @@ def score_check(p_score, d_score)
   
 if p_score > 21 then
     puts "#{@player.name} BUSTED!! You lose."
+    @player_money = @player_money -= @bet
+    puts "#{@player_money}"
     elsif d_score > 21 then
       puts "Dealer BUSTED!! YOU WIN!!"
+      @player_money = @player_money += @bet
+    puts "#{player_money}"
     elsif p_score == 21 then
       puts "YOU GOT BLACKJACK!!!"
+      @player_money = @player_money += (@bet * 3)
+    puts "#{@player_money}"
   elsif p_score < 21 && !@user_stay then
-#do the stay or hit method
+#do the stay or hit method/deal
     stay_or_hit
-    # deal
       elsif d_score < 21 && @user_stay then
         if d_score > p_score then
           puts "You lost. House wins."
+          @player_money = @player_money -= @bet
+          puts "#{player_money}"
         elsif p_score > d_score
         puts "You WON!!"
+        @player_money = @player_money += @bet
+        puts "#{@player_money}"
+        elsif p_score == d_score
+          puts "Its a tie, You still win!"
+          @player_money = @player_money += @bet
+    puts "#{@player_money}"
         end
       else
         puts "something else happened, sorry."
@@ -142,7 +156,7 @@ def stay_or_hit
     # run score check
     score_check(@player_stay_score,@dealer_stay_score)
     puts "Dealer card is a #{@dealer_card[:type]} of #{@dealer_card[:suit][rand(0...3)]}"
-    print "You are at #{@player_stay_score}        Dealer final score: #{@dealer_stay_score}"
+    print "Your score: #{@player_stay_score}        Dealer final score: #{@dealer_stay_score}"
     puts "" # another line break
   end
   end
@@ -167,14 +181,17 @@ end
 def blackjack(player) 
   print "Welcome to BlackJack #{player.name.capitalize}! "
   puts "You currently have $#{player.money}"
+  @player_money = player.money
   puts "Ready to deal?(y/n)"
   @ready = gets.strip.to_s.downcase
-
+  
   if @ready === 'y'
+    puts "Place your bet:"
+    @bet = gets.strip.to_i
     # deal the cards
     deal
   else
-    puts "no go"
+    exit
   end
 end
 
