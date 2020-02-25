@@ -297,7 +297,7 @@ def blackjack(player)
   # extract data from the player passed in from menu
   @player_name = player.name
   @player_age = player.age
-  @player_money = player.money
+  @player_money = player.wallet_balance
   puts "Ready to deal?(y/n)"
   @ready = gets.strip.to_s.downcase
   # check input
@@ -306,10 +306,11 @@ def blackjack(player)
     handle_bet
   elsif @ready === 'n'
     puts "Well, try again later."
+
   else
     puts "invalid input"
   # creates a user with the same data to pass into blackjack method to retry
-    @retry_user = Player_blackjack.new(@player_name,@player_age,@player_money)
+    @retry_user = Player_blackjack.new(@player_name,@player_age,@player_wallet_balance)
     blackjack(@retry_user)
   end
 end
