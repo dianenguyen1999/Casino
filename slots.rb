@@ -13,9 +13,10 @@ end
 class Slot
   attr_accessor :name, :wallet_balance
 
-  def initialize(name, wallet_balance)
+  def initialize(name, wallet_balance, age)
     @name = name
     @wallet_balance = wallet_balance
+    @age = age
 
     @slot_wheel = [
       SlotMachine.new("Apple", 10),
@@ -218,7 +219,7 @@ class Slot
   end
   
   def exit_to_main
-    #connect back to main menu
+    Player.new(@name, @wallet_balance, @age)
   end
   
   def error
