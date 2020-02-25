@@ -10,8 +10,37 @@
   # lock in score at time of stay 
   @player_stay_score = 0
   @dealer_stay_score = 0
-
+  # extract data from the player class instance for use in play_again method
+  @player_name = ''
+  @player_age = 0
   @player_money = 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# create class to pass to blackjack method when playing again
+class Player_blackjack
+  attr_accessor :name, :age, :money
+
+  def initialize(name, age, money)
+    @name = name
+    @age = age
+    @money = money
+  end
+end
+# end player class for playing again
 
 
 
@@ -65,7 +94,6 @@ def deal
 
 # run method to check the scores
 score_check(@player_total, @dealer_total)
-
 end
 # deal method end
 
@@ -82,15 +110,18 @@ def score_check(p_score, d_score)
 if p_score > 21 then
     puts "#{@player.name} BUSTED!! You lose."
     @player_money = @player_money -= @bet
-    puts "#{@player_money}"
+    puts "Your money #{@player_money}"
+    play_again
     elsif d_score > 21 then
       puts "Dealer BUSTED!! YOU WIN!!"
       @player_money = @player_money += @bet
-    puts "#{player_money}"
+    puts "Your money #{@player_money}"
+    play_again
     elsif p_score == 21 then
       puts "YOU GOT BLACKJACK!!!"
       @player_money = @player_money += (@bet * 3)
-    puts "#{@player_money}"
+    puts "Your money #{@player_money}"
+    play_again
   elsif p_score < 21 && !@user_stay then
 #do the stay or hit method/deal
     stay_or_hit
@@ -98,18 +129,22 @@ if p_score > 21 then
         if d_score > p_score then
           puts "You lost. House wins."
           @player_money = @player_money -= @bet
-          puts "#{player_money}"
+          puts "Your money #{@player_money}"
+          play_again
         elsif p_score > d_score
         puts "You WON!!"
         @player_money = @player_money += @bet
-        puts "#{@player_money}"
+        puts "Your money #{@player_money}"
+        play_again
         elsif p_score == d_score
           puts "Its a tie, You still win!"
           @player_money = @player_money += @bet
-    puts "#{@player_money}"
+    puts "Your money #{@player_money}"
+    play_again
         end
       else
         puts "something else happened, sorry."
+        play_again
   end
 end
 # check score method end
@@ -153,11 +188,11 @@ def stay_or_hit
     @dealer_value = @dealer_card[:value] #gets new value from that new card
     @dealer_total = @dealer_value + @dealer_current_score #adds that to the total
     @dealer_stay_score = @dealer_total #sets that total to the stay score to compare
-    # run score check
-    score_check(@player_stay_score,@dealer_stay_score)
     puts "Dealer card is a #{@dealer_card[:type]} of #{@dealer_card[:suit][rand(0...3)]}"
     print "Your score: #{@player_stay_score}        Dealer final score: #{@dealer_stay_score}"
     puts "" # another line break
+    # run score check
+    score_check(@player_stay_score,@dealer_stay_score)
   end
   end
 # handle Hit
@@ -178,21 +213,103 @@ end
 
 
 
+
+
+
+
+# play_again method start
+def play_again
+puts "Would you like to play again?(y/n)"
+# get user input
+input = gets.strip.to_s.downcase
+# instantiate new player with updated money essentially
+updated_player = Player_blackjack.new(@player_name, @player_age, @player_money)
+# handle input
+  if input === 'y' 
+    # rest everything to default
+    reset
+    # call black jack game method, essentially the deal method
+    blackjack(updated_player)
+  end
+end
+# play_again method end
+
+
+
+
+
+
+
+
+
+
+# reset method start
+def reset
+  # reset necessary values back to default
+  @player_current_score = 0;
+  @dealer_current_score = 0;
+  @user_stay = false 
+  @player_stay_score = 0
+  @dealer_stay_score = 0
+end
+# reset method end
+
+
+
+
+# handle bet start
+def handle_bet
+puts "Place your bet:"
+    @bet = gets.strip.to_i
+# has enough money
+    if @bet < @player_money
+      # deal the cards
+      deal
+    elsif @bet > @player_money
+      puts "Sorry you don't have enough money for that bet."
+      puts "Would you like to try a different bet?(y/n)"
+      @bet_again = gets.strip.to_s.downcase
+      if @bet_again == 'y'
+          handle_bet
+      else
+        puts "Come back when you have money turd."
+        exit
+      end
+    else
+      puts "Invalid input"
+    end
+end
+# handle_bet method end
+
+
+
+
+
+
+
+
+
+
+
 def blackjack(player) 
   print "Welcome to BlackJack #{player.name.capitalize}! "
-  puts "You currently have $#{player.money}"
+  puts "You currently have $#{player.money.to_i}"
+  # extract data from the player passed in from menu
+  @player_name = player.name
+  @player_age = player.age
   @player_money = player.money
   puts "Ready to deal?(y/n)"
   @ready = gets.strip.to_s.downcase
-  
+  # check input
   if @ready === 'y'
-    puts "Place your bet:"
-    @bet = gets.strip.to_i
-    # deal the cards
-    deal
+    # run handle bet method
+    handle_bet
+  elsif @ready === 'n'
+    puts "Well, try again later."
   else
-    exit
+    puts "invalid input"
+  # creates a user with the same data to pass into blackjack method to retry
+    @retry_user = Player_blackjack.new(@player_name,@player_age,@player_money)
+    blackjack(@retry_user)
   end
 end
-
-
