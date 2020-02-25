@@ -17,18 +17,18 @@ def casino_start
   puts "How old are you?"
   @age = gets.strip.to_i
   puts "How much money do you have"
-  @money = gets.strip.to_i
+  @wallet_balance = gets.strip.to_i
   puts "What game would you like to play?"
-  @player = Player.new(@name, @money, @age)
+  @player = Player.new(@name, @wallet_balance, @age)
 end
 
 
 class Player
-  attr_accessor :name, :money, :age
+  attr_accessor :name, :wallet_balance, :age
   
-  def initialize(name, money, age)
+  def initialize(name, wallet_balance, age)
     @name = name
-    @money = money
+    @wallet_balance = wallet_balance
     @age = age  
     
     menu
@@ -51,10 +51,11 @@ class Player
       puts "you selected war"
     when 2
       # call blackjack and pass in the player class as an argument
-      blackjack(@player)
+      # blackjack(@player)
+      Blackjack.new(@name, @wallet_balance, @age)
     when 3
       puts "you select slots"
-      Slot.new(@name, @money, @age)
+      Slot.new(@name, @wallet_balance, @age)
     when 4
       puts "Thanks for coming to the Casino! Goodbye."
       exit
