@@ -2,7 +2,6 @@
 
 
 
-
 # GAME
 
 
@@ -32,30 +31,6 @@ def blackjack(name, money, age)
   @player_money = money
   @player_age = age
 
-
-# handle bet start
-def handle_bet
-puts "Place your bet:"
-    @bet = gets.strip.to_i
-# has enough money
-    if @bet < @player_money
-      # deal the cards
-      deal
-    elsif @bet > @player_money
-      puts "Sorry you don't have enough money for that bet."
-      puts "Would you like to try a different bet?(y/n)"
-      @bet_again = gets.strip.to_s.downcase
-      if @bet_again == 'y'
-          handle_bet
-      else
-        puts "Come back when you have money turd."
-        exit_to_main
-      end
-    else
-      puts "Invalid input"
-    end
-end
-# handle_bet method end
 
 
 # deal method start
@@ -105,6 +80,7 @@ end
 # deal method end
 
 
+
 # score_check method start
 def score_check(p_score, d_score)
   # first check did the player bust
@@ -152,7 +128,10 @@ if p_score > 21 then
         puts "something else happened, sorry."
         exit_to_main
   end
-  # check score method end
+end
+# check score method end
+
+
 
 
 # stay_or_hit method start
@@ -166,6 +145,9 @@ def stay_or_hit
     @user_stay = true;
 # we need this because total is made up of the current + value; this updates the total
     @player_current_score = @player_total
+# lock in the current score since you are staying
+    @player_stay_score = @player_total
+# basically updating the dealer score to current
     @dealer_current_score = @dealer_total
 # dealer logic
     if @dealer_current_score >= 17 then
@@ -201,6 +183,17 @@ else
 end
 # stay_or_hit method end
 
+
+
+# exit to main method
+def exit_to_main
+     Player.new(@player_name, @player_money, @player_age)
+  end
+# exit to main method end
+
+
+
+
 # play_again method start
 def play_again
 puts "Would you like to play again?(y/n)"
@@ -222,6 +215,7 @@ end
 # play_again method end
 
 
+
 # reset method start
 def reset
   # reset necessary values back to default
@@ -234,11 +228,36 @@ end
 # reset method end
 
 
-# exit to main method
-def exit_to_main
-     Player.new(@player_name, @player_money, @player_age)
-  end
-# exit to main method end
+
+
+# handle bet start
+def handle_bet
+puts "Place your bet:"
+    @bet = gets.strip.to_i
+# has enough money
+    if @bet < @player_money
+      # deal the cards
+      deal
+    elsif @bet > @player_money
+      puts "Sorry you don't have enough money for that bet."
+      puts "Would you like to try a different bet?(y/n)"
+      @bet_again = gets.strip.to_s.downcase
+      if @bet_again == 'y'
+          handle_bet
+      else
+        puts "Come back when you have money turd."
+        exit_to_main
+      end
+    else
+      puts "Invalid input"
+    end
+end
+# handle_bet method end
+
+
+
+
+
 
   
   puts "Ready to deal?(y/n)"
@@ -253,36 +272,12 @@ def exit_to_main
   else
     puts "invalid input"
     exit_to_main
+  # creates a user with the same data to pass into blackjack method to retry
+    # @retry_user = Player_blackjack.new(@player_name,@player_age,@player_wallet_balance)
+    # blackjack(@retry_user)
   end
 end
 # end blackjack method
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class Blackjack
@@ -292,7 +287,7 @@ class Blackjack
     @name = name
     @wallet_balance = wallet_balance
     @age = age
-# start the game
+# launch the game
     blackjack(@name, @wallet_balance, @age)
   end
 end
