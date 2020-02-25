@@ -1,3 +1,4 @@
+
 require_relative "blackjack"
 require_relative "intro"
 require_relative "slots"
@@ -45,6 +46,7 @@ class Player
       puts "you selected war"
     when 2
       Blackjack.new(@name, @wallet_balance, @age)
+
     when 3
       puts "you select slots"
       Slot.new(@name, @wallet_balance, @age)
