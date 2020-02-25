@@ -214,6 +214,18 @@ end
 
 
 
+# exit to main method
+def exit_to_main
+    Player.new(@player_name, @player_money, @player_age)
+  end
+# exit to main method end
+
+
+
+
+
+
+
 
 
 
