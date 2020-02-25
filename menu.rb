@@ -3,12 +3,6 @@ require_relative "intro"
 require_relative "slots"
 # require_relative 'war.rb'
 
-
-# intro
-# sleeper
-
-
-# user class
 def casino_start
   sleeper
 
@@ -21,7 +15,6 @@ def casino_start
   puts "What game would you like to play?"
   @player = Player.new(@name, @wallet_balance, @age)
 end
-
 
 class Player
   attr_accessor :name, :wallet_balance, :age
@@ -36,7 +29,8 @@ class Player
   
   def menu 
     age_check
-    
+    puts "Casino Menu"
+    puts 
     puts "
     1) War
     2) Blackjack
@@ -50,8 +44,6 @@ class Player
     when 1
       puts "you selected war"
     when 2
-      # call blackjack and pass in the player class as an argument
-      # blackjack(@player)
       Blackjack.new(@name, @wallet_balance, @age)
     when 3
       puts "you select slots"
@@ -72,7 +64,6 @@ class Player
     else
     end
   end
-  # start the menu
 end
   
 casino_start
