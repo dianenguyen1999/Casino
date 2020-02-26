@@ -1,5 +1,5 @@
 
-# require_relative "blackjack"
+require_relative "blackjack"
 require_relative "intro"
 require_relative "slots"
 # require_relative 'war.rb'
