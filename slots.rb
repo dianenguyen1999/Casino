@@ -1,6 +1,3 @@
-#this will be the slot machine
-# require_relative "menu"
-
 class SlotMachine
   attr_accessor :symbol, :value
 
@@ -55,7 +52,7 @@ class Slot
     puts 
     
     puts "
-    1) Show player current wallet/add funds
+    1) Show player current wallet. Remove/add funds
     2) View game rules and payouts
     3) Spin the wheel
     4) Exit back to casino menu
@@ -85,13 +82,16 @@ class Slot
     puts 
     puts "Would you like to
     1) Add more funds
-    2) Return to main menu
+    2) Remove funds
+    3) Return to main menu
     "
     user_choice = gets.strip.to_i
     case user_choice
     when 1
       add_funds
     when 2
+      remove_funds
+    when 3
       slots_menu
     else 
       error
@@ -109,6 +109,22 @@ class Slot
       add_funds
     else
       @wallet_balance += money_to_add
+    end
+    puts "New balance: $#{@wallet_balance}"
+    sleep 1
+    slots_menu
+  end
+  
+  def remove_funds
+    #takes money out of online balance
+    puts "How much would you like to remove?"
+    money_to_remove = gets.strip.to_i
+    
+    if money_to_remove >= @wallet_balance
+      puts "Lol right ... check your numbers pal"
+      remove_funds
+    else
+      @wallet_balance -= money_to_remove
     end
     puts "New balance: #{@wallet_balance}"
     sleep 1
@@ -240,5 +256,5 @@ class Slot
 end
 
 
-# carson = Slot.new('carson', 100)
+# carson = Slot.new('carson', 100,21)
 #the call needs to take inputs from the main menu.  
