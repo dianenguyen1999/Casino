@@ -15,7 +15,10 @@ def greeting
       when 2 
           start_game
       when 3
-          exit 
+    Player.new(@name, @wallet_balance, @age)
+      else
+        puts "incorrect choice, try again"
+        greeting
     end
   end
 
@@ -174,12 +177,12 @@ def view_rules
 class War
   attr_accessor :name, :wallet_balance, :age
   
-  def initialize
+  def initialize(name, wallet_balance, age)
    @name = name
    @wallet_balance = wallet_balance
    @age = age
 # launch the game
-   war(@name, @wallet_balance, @age)
+  #  war(@name, @wallet_balance, @age)
    greeting
   end
 end
