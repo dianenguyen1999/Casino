@@ -176,10 +176,10 @@ if @choice == 'h'
   @dealer_current_score = @dealer_total
   sleep 1
   deal
-end
 else
   puts "invalid input, sorry."
   stay_or_hit
+end
 end
 # stay_or_hit method end
 
