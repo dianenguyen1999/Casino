@@ -44,7 +44,7 @@ class Player
     # game selection logic
     case @game
     when 1
-      puts "you selected war"
+      
     when 2
       Blackjack.new(@name, @wallet_balance, @age)
     when 3
