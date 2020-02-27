@@ -10,31 +10,28 @@ def greeting
 
     user_input = gets.strip.to_i 
     case user_input
-    when 1 
+      when 1 
         view_rules
-    when 2 
-        start_game
-    when 3
-        exit 
+      when 2 
+          start_game
+      when 3
+          exit 
     end
   end
 
 
 
 def view_rules
-    puts 
-            "Basically each player is given two cards, 
+    puts "Basically each player is given two cards, 
             if your card is higher than your opponents you win,
             you can then choose to bet money or exit out of the game
-            and let your opponent win!!" 
-        
-        sleep 10 
+            and let your opponent win!!"  
+        sleep 5       
         greeting 
     end
 
-    
-    
-    
+
+
     
     def start_game
         # instantiate a new deck
@@ -94,11 +91,12 @@ def view_rules
       case user_input
       when 1
         bet_moneys
+      end
       puts "how much money would you like to bet?"
       user_input = gets. strip.to_i
       puts "You bet this much money! #{$user_input}"
+      comparison
     end
-  end
 
 
     
@@ -172,4 +170,18 @@ def view_rules
        end
 
        greeting # every method has to be called in the end in order for it to be ran
+
+class War
+  attr_accessor :name, :wallet_balance, :age
+  
+  def initialize
+   @name = name
+   @wallet_balance = wallet_balance
+   @age = age
+# launch the game
+   war(@name, @wallet_balance, @age)
+   greeting
+  end
+end
+
 
