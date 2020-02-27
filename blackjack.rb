@@ -396,6 +396,9 @@ if p_score > 21 then
       @player_money = @player_money += (@bet * 3)
     puts "Your money #{@player_money}"
     play_again
+    # dealer gets a blackjack
+    elsif d_score == 21 then
+      puts "Dealer has BLACKJACK! You LOSE."
     # is the player score less than 21 or bust and they aren't staying
     elsif p_score < 21 && !@user_stay then
 #do the stay or hit method/deal
