@@ -30,7 +30,7 @@ def blackjack(name, money, age)
   @player_name = name
   @player_money = money
   @player_age = age
-
+# comment
 
 
 # deal method start
