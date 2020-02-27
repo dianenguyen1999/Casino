@@ -61,13 +61,13 @@ def view_rules
       puts "Who is going to win??"
       if @computer.rank >= @player1.rank 
         puts "You lose" 
-        bet_money
+        # bet_money
       elsif @player1 >= @computer.rank
         puts "You win"
-        bet_money
+        # bet_money
       end
       # puts "bet_money"
-      # bet_money
+      bet_money
     end
     
     # def bet_money 
@@ -89,11 +89,18 @@ def view_rules
     def bet_money 
       puts "Would you like to take the loss/win?
       Or would you like to bet money and keep going?? ᕦ(ò_óˇ)ᕤ
-      IF SO, BET YOUR MONEYS"
+      IF SO, BET YOUR MONEYS
+      1) keep playing
+      2) exit to menu
+      "
       user_input = gets.strip.to_i
       case user_input
       when 1
         bet_moneys
+      when 2
+        greeting
+      else
+        greeting
       end
       puts "how much money would you like to bet?"
       user_input = gets. strip.to_i
