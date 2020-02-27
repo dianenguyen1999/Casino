@@ -169,7 +169,7 @@ def view_rules
         end
        end
 
-       greeting # every method has to be called in the end in order for it to be ran
+      #  greeting # every method has to be called in the end in order for it to be ran
 
 class War
   attr_accessor :name, :wallet_balance, :age
